@@ -3,7 +3,13 @@ There are many dotfiles; these are mine.
 
 ## Setup
 
+1. install xcode command line tools
 1. clone
+1. run .macos
+1. install homebrew
+1. install the [mas-cli](https://github.com/mas-cli/mas)
+1. sign into app store via mas
+1. install brews & bundles
 
 ## Inspired by, and thanks to:
 
