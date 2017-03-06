@@ -53,7 +53,6 @@ mas 'LittleIpsum', id: 405772121
 mas 'Moom', id: 419330170
 mas 'Pages', id: 409201541
 mas 'Reeder', id: 880001334
-mas 'Sim Daltonism', id: 693112260
 mas 'Tadam', id: 531349534
 mas 'Tweetbot', id: 557168941
 mas 'Unclutter', id: 577085396

@@ -4,12 +4,28 @@ There are many dotfiles; these are mine.
 ## Setup
 
 1. install xcode command line tools
-1. clone
-1. run .macos
+    
+    xcode-select --install
+    
+1. clone this repo
+
+    git clone https://github.com/janson/dotfiles.git
+
 1. install homebrew
+    
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 1. install the [mas-cli](https://github.com/mas-cli/mas)
-1. sign into app store via mas
-1. install brews & bundles
+
+    brew install mas
+
+1. sign into app store via mas, if needed
+
+    mas signin email@email.com
+
+1. install brews, casks, and AppStore bundles
+
+    brew bundle install
 
 ## Inspired by, and thanks to:
 
