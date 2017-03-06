@@ -51,6 +51,7 @@ mas 'Icon Slate', id: 439697913
 mas 'Keynote', id: 409183694
 mas 'LittleIpsum', id: 405772121
 mas 'Moom', id: 419330170
+mas 'Monity', id: 915542151
 mas 'Pages', id: 409201541
 mas 'Reeder', id: 880001334
 mas 'Tadam', id: 531349534
