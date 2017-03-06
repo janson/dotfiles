@@ -1,0 +1,46 @@
+[user]
+  name = Janson Hartliep
+  email = janson@mightyinthemidwest.com # "(none)" enforces a per-project user.email setting
+[core]
+	excludesfile = ~/.gitignore
+  # Make `git rebase` safer on OS X
+  # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+  trustctime = false
+	editor = /usr/local/bin/vim
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -FRSX
+[color]
+  ui = always
+  diff = auto
+  status = auto
+[alias]
+  a = !git add --patch && git status
+  b = branch -avv
+  c = commit -a
+  d = log --diff-filter=D -- $1
+  di = diff --cached
+  l = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  ll = log --stat --abbrev-commit
+  in = !git fetch && git log --pretty=oneline --abbrev-commit ..@{u} 
+  out = log --pretty=oneline --abbrev-commit @{u}..
+  publish = push --tags origin :
+  s = status -sb
+  t = log --tags --simplify-by-decoration --pretty=format:'%ai%C(cyan)%d %C(yellow)%h %Creset%s %C(white)%an'
+[push]
+  default = simple
+[mergetool]
+	keepBackup = false
+	prompt = false
+[merge]
+  log = true
+	tool = Kaleidoscope
+[branch]
+	autosetuprebase = local
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[diff]
+	tool = Kaleidoscope
