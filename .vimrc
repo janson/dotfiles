@@ -168,6 +168,11 @@ au BufRead,BufNewFile *.twig set syntax=jinja
 au FileType php setlocal foldmethod=indent
 " au FileType gitcommit startinsert " when commiting  add new line and enter insert mode
 
+" Constraining columns in commit messages to 72 cols. 
+" cref. https://chris.beams.io/posts/git-commit/
+autocmd FileType gitcommit set textwidth=72
+autocmd FileType gitcommit set colorcolumn=73
+
 " ---------------------------------
 " Writing
 " ---------------------------------

@@ -44,3 +44,5 @@
 	prompt = false
 [diff]
 	tool = Kaleidoscope
+[commit]
+  template = /Users/janson/.git-commit-template
