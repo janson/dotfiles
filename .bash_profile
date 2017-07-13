@@ -24,6 +24,9 @@ export HOMEBREW_GITHUB_API_TOKEN=9aa6ddc05b2f40f70e6c9f0ef0b934a65d784b44
 # Add npm managed binaries to the path
 export PATH=/usr/local/share/npm/bin:$PATH
 
+# Add rbenv to bash so that it loads every time you open a terminal
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 ###	###	###	###	#
 # Customized prompts:
 # user@domain current directory (git_repo_branch)

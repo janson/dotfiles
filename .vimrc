@@ -72,6 +72,7 @@ set encoding=utf-8
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
+set shiftround          " indents to the next multiple of 'shiftwidth'
 set expandtab
 set wrap
 set linebreak           " don't wrap words
@@ -83,10 +84,10 @@ set clipboard+=unnamed  " yank to system clipboard
 " ---------------------------------
 " Searching
 " ---------------------------------
-set incsearch
+set incsearch           " highlight while searching with / or ?
 set ignorecase
 set smartcase
-set hlsearch
+set hlsearch            " keep matches highlighted
 nmap <leader>q :nohlsearch<CR> " clear the highlight
 set showcmd             " display incomplete commands
 set showmatch           " show matching braces
@@ -118,6 +119,8 @@ set noswapfile          " nah, I don't want a swap file
 " ---------------------------------
 set background=dark     " usually using vim w/ light on dark terminal
 set timeoutlen=250      " time to wait after ESC
+set ttyfast             " faster redrawing
+set lazyredraw          " only redraw when necessary
 set cf                  " Enable error files & error jumping.
 set wildmenu            " show other options for tab completion
 set title               " sets terminal title
