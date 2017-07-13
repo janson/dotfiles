@@ -1,7 +1,7 @@
 [user]
   name = Janson Hartliep
   email = janson@mightyinthemidwest.com
-  signingkey = E3B36B457C3C2190101C18D6CFF916850CC95923
+  signingkey = CFF916850CC95923
 [core]
   excludesfile = ~/.gitignore
   # Make `git rebase` safer on OS X
@@ -19,7 +19,8 @@
   c = commit -a
   d = log --diff-filter=D -- $1
   di = diff --cached
-  l = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  #l = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(cyan)%G? %GK%Creset'
   ll = log --stat --abbrev-commit
   in = !git fetch && git log --pretty=oneline --abbrev-commit ..@{u} 
   out = log --pretty=oneline --abbrev-commit @{u}..
