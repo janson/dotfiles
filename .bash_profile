@@ -1,3 +1,4 @@
+source ~/.profile
 ### ### ### ### #
 # 256 color if available
 ### ### ### ### #

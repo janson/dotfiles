@@ -27,6 +27,7 @@
   publish = push --tags origin :
   s = status -sb
   t = log --tags --simplify-by-decoration --pretty=format:'%ai%C(cyan)%d %C(yellow)%h %Creset%s %C(white)%an'
+  refresh = !git fetch --all && git remote prune origin && git checkout develop && git pull
 [commit]
   gpgSign = true
 [push]

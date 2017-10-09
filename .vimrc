@@ -238,7 +238,6 @@ let g:filebeagle_show_hidden = 1 " Show hidden and (wild-)ignored files by defau
 set ttimeoutlen=10 " speed up delay when entering normal mode
 set laststatus=2   " Always show the statusline
 colorscheme hybrid
-let g:airline_theme = 'hybrid' " default is 'dark'
 
 " Airline
 let g:airline_skip_empty_sections = 1 " Do not draw separators for empty sections (only for the active window)
