@@ -1,4 +1,6 @@
 source ~/.profile
+source ~/.tiny-care.env
+
 ### ### ### ### #
 # 256 color if available
 ### ### ### ### #
@@ -22,8 +24,17 @@ export MANPATH=/usr/local/man:$MANPATH
 # Sometimes, in a busy office, we hit GitHub's API rate limit when brewing
 export HOMEBREW_GITHUB_API_TOKEN=9aa6ddc05b2f40f70e6c9f0ef0b934a65d784b44
 
-# Add npm managed binaries to the path
+# Prepend node LTS (v6) to the path
+export PATH=/usr/local/opt/node@6/bin:$PATH
+
+# Prepend Postgresql (v9.6) to the path
+export PATH=/usr/local/opt/postgresql@9.6/bin:$PATH
+
+# Prepend npm managed binaries to the path
 export PATH=/usr/local/share/npm/bin:$PATH
+
+# Append composer binaries to the path
+export PATH=$PATH:~/.composer/vendor/bin
 
 # Add rbenv to bash so that it loads every time you open a terminal
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -100,3 +111,4 @@ alias lla='ls -lA'	# everything
 alias l='ls -CF'    #
 #
 ###
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn

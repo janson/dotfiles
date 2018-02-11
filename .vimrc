@@ -38,15 +38,18 @@ Plug 'Glench/Vim-Jinja2-Syntax' " for twig
 Plug 'janson/Expression-Engine-Vim-syntax'
 Plug 'elzr/vim-json'
 "   Other
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'kylef/apiblueprint.vim'
 
 " Color
 Plug 'w0ng/vim-hybrid'
 
 " Writing
-" Plug 'reedes/vim-colors-pencil'
+Plug 'reedes/vim-pencil'
+Plug 'reedes/vim-colors-pencil'
 " Plug 'junegunn/goyo.vim'
 " Plug 'amix/vim-zenroom2'
 
@@ -129,6 +132,8 @@ set t_Co=256            " enable 256 colorschemes in non gui
 set list                        " show invisible chars
 set listchars=tab:▸\ ,eol:¬     " add extra bling for tabs & end of lines
 
+colorscheme hybrid
+
 " ---------------------------------
 " Folding
 " ---------------------------------
@@ -179,14 +184,12 @@ autocmd FileType gitcommit set colorcolumn=73
 " ---------------------------------
 " Writing
 " ---------------------------------
-" augroup pencil
-"   autocmd!
-"   autocmd FileType markdown,mkd call pencil#init()
-"                             \ | call lexical#init()
-"                             \ | call litecorrect#init()
-"                             \ | call textobj#quote#init()
-"                             \ | call textobj#sentence#init()
-" augroup END
+"augroup pencil
+  "autocmd!
+  "autocmd FileType markdown,mkd,text call pencil#init()
+  "colorscheme pencil
+  "let g:airline_theme = 'pencil'
+"augroup END
 
 " -------------------------------------------------------------------
 " Plugin Settings
@@ -225,7 +228,7 @@ let javascript_enable_domhtmlcss=1
 let g:vim_json_syntax_conceal = 0
 
 " vim-markdown
-let g:vim_markdown_initial_foldlevel=4
+let g:vim_markdown_initial_foldlevel=2
 
 " netrw
 "let g:netrw_liststyle = 3   " tree style listing
@@ -237,7 +240,6 @@ let g:filebeagle_show_hidden = 1 " Show hidden and (wild-)ignored files by defau
 " Powerline / Airline
 set ttimeoutlen=10 " speed up delay when entering normal mode
 set laststatus=2   " Always show the statusline
-colorscheme hybrid
 
 " Airline
 let g:airline_skip_empty_sections = 1 " Do not draw separators for empty sections (only for the active window)
