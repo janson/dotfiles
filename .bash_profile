@@ -21,12 +21,6 @@ export HISTTIMEFORMAT
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export MANPATH=/usr/local/man:$MANPATH
 
-# Sometimes, in a busy office, we hit GitHub's API rate limit when brewing
-export HOMEBREW_GITHUB_API_TOKEN=9aa6ddc05b2f40f70e6c9f0ef0b934a65d784b44
-
-# Prepend node LTS (v6) to the path
-export PATH=/usr/local/opt/node@6/bin:$PATH
-
 # Prepend Postgresql (v9.6) to the path
 export PATH=/usr/local/opt/postgresql@9.6/bin:$PATH
 
