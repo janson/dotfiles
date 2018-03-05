@@ -7,12 +7,13 @@ set nocompatible              " be iMproved, required
 call plug#begin('~/.vim/plugged')
 
 " Fuzzy File Finding
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
+" Let's try fzf for new goodness
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Navigation
-Plug 'jeetsukumaran/vim-filebeagle' " similar to vim-vinegar, but avoids nasty netrw bug leaving buffers open
 Plug 'wincent/ferret' " Enhanced multi-file search via an :Ack command for searching across multiple files using The Silver Searcher 
+Plug 'jeetsukumaran/vim-filebeagle' " similar to vim-vinegar, but avoids nasty netrw bug leaving buffers open
 
 " Commands
 Plug 'scrooloose/nerdcommenter' " comment stuff 
@@ -26,23 +27,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Language Additions
-"   Back
-Plug 'vim-ruby/vim-ruby'
-Plug 'StanAngeloff/php.vim'
-"   Middle
-Plug 'pangloss/vim-javascript'
-Plug 'Shutnik/jshint2.vim'
-"   Front
-"Plug 'lumiliet/vim-twig'
-Plug 'Glench/Vim-Jinja2-Syntax' " for twig
-Plug 'janson/Expression-Engine-Vim-syntax'
-Plug 'elzr/vim-json'
-"   Other
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-fugitive'
-Plug 'kylef/apiblueprint.vim'
+Plug 'sheerun/vim-polyglot'
+"   Lint
+Plug 'w0rp/ale'
 
 " Color
 Plug 'w0ng/vim-hybrid'
@@ -50,12 +37,8 @@ Plug 'w0ng/vim-hybrid'
 " Writing
 Plug 'reedes/vim-pencil'
 Plug 'reedes/vim-colors-pencil'
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 " Plug 'amix/vim-zenroom2'
-
-" Augmented fonts
-" configure vim to load reliant plugins before vim-devicons loads
-" Plug 'ryanoasis/vim-devicons'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -131,8 +114,9 @@ set visualbell          " visual indication instead of audible
 set t_Co=256            " enable 256 colorschemes in non gui
 set list                        " show invisible chars
 set listchars=tab:▸\ ,eol:¬     " add extra bling for tabs & end of lines
-
-colorscheme hybrid
+if !has('gui_running')
+  colorscheme hybrid
+endif
 
 " ---------------------------------
 " Folding
@@ -149,7 +133,7 @@ nmap Q @@
 
 " rebind ESC to something a) more ergonomic b) not likely to be used
 " can also use CTRL-[, which is built into vim
-inoremap jk <Esc>
+"inoremap jk <Esc>
 "cnoremap jk <Esc>
 "vnoremap jk <Esc>
 " train the remapping, idea borrowed from
@@ -172,9 +156,8 @@ nmap <Leader>j :%!python -m json.tool
 " ---------------------------------
 au BufRead,BufNewFile {Gemfile,Rakefile,Isolate,config.ru} set ft=ruby
 au BufRead,BufNewFile {htaccess} set ft=apache
-au BufRead,BufNewFile *.twig set syntax=jinja
-au FileType php setlocal foldmethod=indent
-" au FileType gitcommit startinsert " when commiting  add new line and enter insert mode
+au BufRead,BufNewFile *.twig set ft=html.twig
+au BufRead,BufNewFile *.html set ft=html.twig
 
 " Constraining columns in commit messages to 72 cols. 
 " cref. https://chris.beams.io/posts/git-commit/
@@ -195,28 +178,10 @@ autocmd FileType gitcommit set colorcolumn=73
 " Plugin Settings
 " -------------------------------------------------------------------
 
-" Fuzzy-find with ctrlp
-let g:ctrlp_map = '<leader>t'
-nmap ; :CtrlPBuffer<CR>
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-  
-  " bind K to grep word under cursor
-  nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-endif
-
-" Command-/ to toggle comments
-map <D-/> <plug>NERDCommenterToggle<CR>
+" Fuzzy-find with fzf
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
 
 " vim-bbye
 noremap :BD :Bdelete
