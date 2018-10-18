@@ -4,11 +4,11 @@ source ~/.tiny-care.env
 ### ### ### ### #
 # 256 color if available
 ### ### ### ### #
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-  export TERM='xterm-256color'
-else
-  export TERM='xterm-color'
-fi
+# if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+#   export TERM='xterm-256color'
+# else
+#   export TERM='xterm-color'
+# fi
 
 # Because we like to look in the past.
 export HISTSIZE=10000
@@ -98,11 +98,9 @@ export LESS='-R'
 alias grep='grep --color'                     # show differences in colour
 
 # Some shortcuts for different directory listings
-alias ls='ls -hFG'	# classify files in colour
+alias ls='ls -hFG' # classify files in colour
 alias ll='ls -l' 	# long list
-alias la='ls -A'	# all but . and ..
-alias lla='ls -lA'	# everything
-alias l='ls -CF'    #
+alias lla='ls -ltA'	# everything
 #
 ###
 [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn

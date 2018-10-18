@@ -16,8 +16,9 @@ Plug 'wincent/ferret' " Enhanced multi-file search via an :Ack command for searc
 Plug 'jeetsukumaran/vim-filebeagle' " similar to vim-vinegar, but avoids nasty netrw bug leaving buffers open
 
 " Commands
-Plug 'scrooloose/nerdcommenter' " comment stuff 
+Plug 'tomtom/tcomment_vim' " file-type sensible default comments
 Plug 'ervandew/supertab' " tab-completion (code completion see YouCompleteMe)
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat' " allows vim-surround to be repeated with the . command
 Plug 'moll/vim-bbye' " :Bdelete command that behaves like a well designed citizen
 Plug 'janson/bufonly.vim' 
@@ -25,20 +26,36 @@ Plug 'janson/bufonly.vim'
 " UI Additions
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'kien/rainbow_parentheses.vim'
 
 " Language Additions
-Plug 'sheerun/vim-polyglot'
+"   Language pack
+" Plug 'sheerun/vim-polyglot' " un-maintained as of 2017
+"   Backend
+Plug 'vim-ruby/vim-ruby'
+Plug 'StanAngeloff/php.vim'
+"   Middle
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+"   Front
+Plug 'othree/html5.vim'
+Plug 'Glench/Vim-Jinja2-Syntax' " for twig
+"   Other
+Plug 'elzr/vim-json'
+Plug 'plasticboy/vim-markdown'
 "   Lint
 Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
 
 " Color
 Plug 'w0ng/vim-hybrid'
+Plug 'lifepillar/vim-solarized8' " instead of 'official' @altercation
+Plug 'arcticicestudio/nord-vim'
 
 " Writing
-Plug 'reedes/vim-pencil'
-Plug 'reedes/vim-colors-pencil'
-Plug 'junegunn/goyo.vim'
-" Plug 'amix/vim-zenroom2'
+"Plug 'reedes/vim-pencil'
+"Plug 'reedes/vim-colors-pencil'
+"Plug 'junegunn/goyo.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -103,7 +120,6 @@ set noswapfile          " nah, I don't want a swap file
 " ---------------------------------
 " Bling
 " ---------------------------------
-set background=dark     " usually using vim w/ light on dark terminal
 set timeoutlen=250      " time to wait after ESC
 set ttyfast             " faster redrawing
 set lazyredraw          " only redraw when necessary
@@ -112,11 +128,10 @@ set wildmenu            " show other options for tab completion
 set title               " sets terminal title
 set visualbell          " visual indication instead of audible
 set t_Co=256            " enable 256 colorschemes in non gui
+set cursorline          " highlights current line, visually speaking
 set list                        " show invisible chars
 set listchars=tab:▸\ ,eol:¬     " add extra bling for tabs & end of lines
-if !has('gui_running')
-  colorscheme hybrid
-endif
+set termguicolors
 
 " ---------------------------------
 " Folding
@@ -156,8 +171,7 @@ nmap <Leader>j :%!python -m json.tool
 " ---------------------------------
 au BufRead,BufNewFile {Gemfile,Rakefile,Isolate,config.ru} set ft=ruby
 au BufRead,BufNewFile {htaccess} set ft=apache
-au BufRead,BufNewFile *.twig set ft=html.twig
-au BufRead,BufNewFile *.html set ft=html.twig
+au BufRead,BufNewFile *.twig set ft=jinja.html
 
 " Constraining columns in commit messages to 72 cols. 
 " cref. https://chris.beams.io/posts/git-commit/
@@ -182,6 +196,11 @@ autocmd FileType gitcommit set colorcolumn=73
 nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
+
+" tcomment_vim
+" leader-c  is the prefix for code related mappîngs 
+" instead of `gc`
+noremap <silent> <Leader>cc :TComment<CR>
 
 " vim-bbye
 noremap :BD :Bdelete
@@ -208,7 +227,21 @@ set laststatus=2   " Always show the statusline
 
 " Airline
 let g:airline_skip_empty_sections = 1 " Do not draw separators for empty sections (only for the active window)
-let g:airline_powerline_fonts = 1 " automatically populate g:airline_symbols with powerline symbols
-let g:airline_section_a = '' " defaults are: mode, crypt, paste, spell, iminsert
+let g:airline_powerline_fonts = 0 " automatically populate g:airline_symbols with powerline symbols
+"let g:airline_section_a = '' " defaults are: mode, crypt, paste, spell, iminsert
 let g:airline_section_y = '' " defaults are: fileencoding, fileformat
 let g:airline_section_warning = ''  " defaults are: ycm_warning_count, whitespace
+let g:airline#extensions#tagbar#enabled = 0 " Disable airline tagbar for faster opening times
+
+" Colorschemes
+if !has('gui_running')
+  "set background=dark
+  " - modified solarized
+  let g:solarized_term_italics = 1 " set to 1 to enable italics in the terminal (default is 0)
+  let g:solarized_visibility = "low" " less in-yo-face invisible chars
+  colorscheme solarized8_high
+  " - nord (dark)
+  "let g:nord_italic = 1
+  "let g:nord_italic_comments = 1
+  "colorscheme nord " all settings need to be set prior to scheme activation
+endif

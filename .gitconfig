@@ -54,3 +54,7 @@
   template = /Users/janson/.git-commit-template
 [status]
 	submoduleSummary = true
+[github]
+	user = janson
+[ghi]
+	token = !security find-internet-password -a janson -s github.com -l 'ghi token' -w
