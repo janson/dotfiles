@@ -1,6 +1,3 @@
-source ~/.profile
-source ~/.tiny-care.env
-
 ### ### ### ### #
 # 256 color if available
 ### ### ### ### #
@@ -21,17 +18,8 @@ export HISTTIMEFORMAT
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export MANPATH=/usr/local/man:$MANPATH
 
-# Prepend Postgresql (v9.6) to the path
-export PATH=/usr/local/opt/postgresql@9.6/bin:$PATH
-
 # Prepend npm managed binaries to the path
 export PATH=/usr/local/share/npm/bin:$PATH
-
-# Append composer binaries to the path
-export PATH=$PATH:~/.composer/vendor/bin
-
-# Add rbenv to bash so that it loads every time you open a terminal
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 ###	###	###	###	#
 # Customized prompts:

@@ -1,6 +1,6 @@
 [user]
   name = Janson Hartliep
-  email = janson@mightyinthemidwest.com
+  email = janson@fastmail.fm
   signingkey = CFF916850CC95923
 [core]
   excludesfile = ~/.gitignore
