@@ -38,6 +38,11 @@ git -C "$repo" ls-files home | sed 's#^home/##' | while read -r rel; do
   run ln -s "$src" "$dst"
 done
 
+# gpg and ssh warn about, or refuse, directories others can read.
+for dir in "$HOME/.gnupg" "$HOME/.ssh"; do
+  if [ -d "$dir" ]; then run chmod 700 "$dir"; fi
+done
+
 if [ -d "$backup" ]; then
   echo "Replaced files are in $backup"
 fi
