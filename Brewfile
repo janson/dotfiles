@@ -1,4 +1,4 @@
-# Core: what every laptop needs to be productive. `brew bundle`
+# Core: the starting point for me to feel productive. `brew bundle`
 
 # Shell
 brew "bat"
@@ -17,4 +17,6 @@ brew "pinentry-mac"
 # Editor
 brew "neovim"
 
+# Casks for a better UX
 cask "ghostty"
+cask "gpg-suite"

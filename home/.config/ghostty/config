@@ -1,6 +1,6 @@
-# ~/.config/ghostty/config — ported from iTerm2 profile "janson"
+# ~/.config/ghostty/config
 
-# --- Font ---
+# --- Typography ---
 font-family = MonoLisa
 font-size = 14
 font-feature = -calt
@@ -9,16 +9,15 @@ font-feature = -dlig
 # adjust-cell-height = 1%
 
 # --- Colors ---
-# Theme files live in ~/.config/ghostty/themes/ and were generated from your plist.
+# Theme files live in ~/.config/ghostty/themes/
 # theme = light:solarized-light,dark:solarized-dark
 theme = solarized-dark
 
 # --- Cursor ---
 cursor-style = block
 cursor-style-blink = false
-shell-integration-features = no-cursor,sudo,title
 
-# --- Window (iTerm: 120x48, no scrollbar, tab bar only with 2+ tabs, no quit prompts) ---
+# --- Window ---
 window-width = 120
 window-height = 48
 window-padding-x = 4
@@ -27,14 +26,12 @@ window-padding-balance = true
 window-padding-color = extend
 window-inherit-working-directory = true
 unfocused-split-opacity = 0.7
-#confirm-close-surface = false
-#quit-after-last-window-closed = false
-#window-show-tab-bar = auto
 macos-titlebar-style = tabs
+bold-color = bright
 
 # --- Input ---
 mouse-hide-while-typing = true
 
-# --- Shell integration (replaces iTerm Shell Integration; also fixes TERM over ssh) ---
+# --- Shell ---
 shell-integration = zsh
 shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
