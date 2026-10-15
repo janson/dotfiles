@@ -1,0 +1,16 @@
+# Extras: a fuller setup on top of the core. `brew bundle --file=Brewfile.extra`
+
+# Toolchains
+brew "bun"
+brew "cmake"
+brew "llvm@21"
+brew "ninja"
+brew "python@3.14"
+brew "rustup"
+brew "z3"
+
+# AI tools
+brew "opencode"
+cask "claude-code"
+
+cask "gpg-suite"
