@@ -1,0 +1,7 @@
+# Extras: a fuller setup on top of the core. `brew bundle --file=Brewfile.extra`
+
+# Toolchains
+
+# AI tools
+brew "opencode"
+cask "claude-code"

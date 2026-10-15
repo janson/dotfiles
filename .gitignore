@@ -1,35 +1,26 @@
-# Compiled source #
-###################
-*.class
-*.dll
-*.exe
-*.o
-*.so
+# Allowlist: ignore everything, then opt files in one by one.
+# This repo is public; nothing gets committed by accident.
+/*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/install.sh
+!/Brewfile
+!/Brewfile.extra
+!/home/
 
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
+# Re-include directories under home/ so files inside can be opted in.
+/home/**
+!/home/**/
 
-# Logs and databases #
-######################
-*.log
-*.sqlite
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+!/home/.zprofile
+!/home/.zshrc
+!/home/.gitconfig
+!/home/.gitignore
+!/home/.gitmessage
+!/home/.vimrc
+!/home/.config/nvim/init.vim
+!/home/.config/mise/config.toml
+!/home/.config/ghostty/config
+!/home/.config/ghostty/themes/*
+!/home/.claude/CLAUDE.md

@@ -1,35 +1,44 @@
 # dotfiles
-There are many dotfiles; these are mine.
 
-## Setup
+There are many dotfiles; these are mine. Everything in `home/` gets symlinked into `~`.
 
-1. install xcode command line tools
-    
-    xcode-select --install
-    
-1. clone this repo
+## Fresh setup
 
-    git clone https://github.com/janson/dotfiles.git
+1. Get/confirm git via the Command Line Tools, then [Homebrew](https://brew.sh):
 
-1. install homebrew
-    
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+       xcode-select --install
 
-1. install the [mas-cli](https://github.com/mas-cli/mas)
+2. Clone over https, wherever repos live on this machine, and brew the basics:
 
-    brew install mas
+       git clone https://github.com/janson/dotfiles.git
+       cd dotfiles
+       brew bundle
 
-1. sign into app store via mas, if needed
+   Optional `brew bundle --file=Brewfile.extra`.
 
-    mas signin email@email.com
+3. Link everything. Links point at this clone, so if you move it, re-run.
 
-1. install brews, casks, and AppStore bundles
+       ./install.sh --dry-run
+       ./install.sh
 
-    brew bundle install
+4. The bits that can't live here:
+   - [vim-plug](https://github.com/junegunn/vim-plug), then `:PlugInstall`
+   - MonoLisa, or my current monospaced obession... 
+   - gpg && ssh keys
+
+## Just this machine
+
+Secrets, additional settings, and one-offs go in `~/.zshrc.local` and
+`~/.gitconfig.local` (e.g. `[user] signingkey = ...`).
+
+## Adding a file
+
+`.gitignore` ignores everything, on purpose. Add the file under `home/`, add a `!/home/...` line to `.gitignore`, and
+re-run `./install.sh`.
 
 ## Inspired by, and thanks to:
 
 * dotfiles - [mathiasbynens](https://github.com/mathiasbynens/dotfiles), [driesvints](https://github.com/driesvints/dotfiles)
-* .macos - @mathiasbynens [.macos](http://mths.be/macos) and Kevin Suttle [OSXDefaults](https://github.com/kevinSuttle/macOS-Defaults) 
+* .macos - @mathiasbynens [.macos](http://mths.be/macos) and Kevin Suttle [OSXDefaults](https://github.com/kevinSuttle/macOS-Defaults)
 * Brewfile - Tania Rascia [Setting up a Brand New Mac for Development](https://www.taniarascia.com/setting-up-a-brand-new-mac-for-development/)
 * Security - [macOS Security & Privacy Guide](https://github.com/drduh/macOS-Security-and-Privacy-Guide)
