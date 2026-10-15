@@ -1,0 +1,25 @@
+# Allowlist: ignore everything, then opt files in one by one.
+# This repo is public; nothing gets committed by accident.
+/*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/install.sh
+!/Brewfile
+!/Brewfile.extra
+!/home/
+
+# Re-include directories under home/ so files inside can be opted in.
+/home/**
+!/home/**/
+
+!/home/.zprofile
+!/home/.zshrc
+!/home/.gitconfig
+!/home/.gitignore
+!/home/.gitmessage
+!/home/.vimrc
+!/home/.config/nvim/init.vim
+!/home/.config/mise/config.toml
+!/home/.config/ghostty/config
+!/home/.config/ghostty/themes/*
