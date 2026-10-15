@@ -15,7 +15,6 @@
   ll = log --stat --abbrev-commit
   in = !git fetch && git log --pretty=oneline --abbrev-commit ..@{u} 
   out = log --pretty=oneline --abbrev-commit @{u}..
-  publish = push --tags origin :
   s = status -sb
   t = log --tags --simplify-by-decoration --pretty=format:'%ai%C(cyan)%d %C(yellow)%h %Creset%s %C(white)%an'
   refresh = !git fetch --all && git remote prune origin && git checkout main && git pull
@@ -32,6 +31,8 @@
 	conflictstyle = zdiff3
 [branch]
   autosetuprebase = local
+[push]
+	autosetupremote = true
 [init]
   defaultBranch = main
 [mergetool "Kaleidoscope"]

@@ -31,6 +31,8 @@ bold-color = bright
 
 # --- Input ---
 mouse-hide-while-typing = true
+# Yes, I do, in fact, use good punctuation
+macos-option-as-alt = false
 
 # --- Shell ---
 shell-integration = zsh
