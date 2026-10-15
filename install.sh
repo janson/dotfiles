@@ -10,7 +10,7 @@
 set -eu
 
 repo=$(cd "$(dirname "$0")" && pwd)
-backup="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+backup="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)-$$"
 dry_run=false
 [ "${1:-}" = "--dry-run" ] && dry_run=true
 
