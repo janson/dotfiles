@@ -1,51 +1,44 @@
 # dotfiles
 
-Minimal bootstrap for a new Mac. Files in `home/` are symlinked into `~`.
+There are many dotfiles; these are mine. Everything in `home/` gets symlinked into `~`.
 
-## New laptop
+## Fresh setup
 
-1. Install the Command Line Tools (gives you git):
+1. Get/confirm git via the Command Line Tools, then [Homebrew](https://brew.sh):
 
        xcode-select --install
 
-2. Install [Homebrew](https://brew.sh) with the official installer.
+2. Clone over https, wherever repos live on this machine, and brew the basics:
 
-3. Clone over https (no SSH key yet) and install the core packages:
-
-       git clone https://github.com/janson/dotfiles.git ~/code/dotfiles
-       cd ~/code/dotfiles
+       git clone https://github.com/janson/dotfiles.git
+       cd dotfiles
        brew bundle
 
-   For a fuller setup, also run `brew bundle --file=Brewfile.extra`.
+   Optional `brew bundle --file=Brewfile.extra`.
 
-4. Link the dotfiles. Anything already in the way is moved to
-   `~/.dotfiles-backup/<timestamp>/`.
+3. Link everything. Links point at this clone, so if you move it, re-run.
 
        ./install.sh --dry-run
        ./install.sh
 
-5. Install [vim-plug](https://github.com/junegunn/vim-plug), then run
-   `:PlugInstall` in nvim.
+4. The bits that can't live here:
+   - [vim-plug](https://github.com/junegunn/vim-plug), then `:PlugInstall`
+   - MonoLisa, or my current monospaced obession... 
+   - gpg && ssh keys
 
-6. Install the MonoLisa font (licensed, so not in this repo).
+## Just this machine
 
-7. Create keys, then switch the remote to SSH:
-
-       ssh-keygen -t ed25519
-       gpg --full-generate-key
-       gh auth login
-       git remote set-url origin git@github.com:janson/dotfiles.git
-
-## Per-machine settings
-
-These files are sourced if present and never committed. Put secrets, work
-settings and one-off tools here:
-
-- `~/.zshrc.local`
-- `~/.gitconfig.local`, e.g. `[user] signingkey = ...`
+Secrets, additional settings, and one-offs go in `~/.zshrc.local` and
+`~/.gitconfig.local` (e.g. `[user] signingkey = ...`).
 
 ## Adding a file
 
-`.gitignore` ignores everything by default. To track a new file, put it
-under `home/` at its path relative to `~`, add a `!/home/...` line to
-`.gitignore`, and re-run `./install.sh`.
+`.gitignore` ignores everything, on purpose. Add the file under `home/`, add a `!/home/...` line to `.gitignore`, and
+re-run `./install.sh`.
+
+## Inspired by, and thanks to:
+
+* dotfiles - [mathiasbynens](https://github.com/mathiasbynens/dotfiles), [driesvints](https://github.com/driesvints/dotfiles)
+* .macos - @mathiasbynens [.macos](http://mths.be/macos) and Kevin Suttle [OSXDefaults](https://github.com/kevinSuttle/macOS-Defaults)
+* Brewfile - Tania Rascia [Setting up a Brand New Mac for Development](https://www.taniarascia.com/setting-up-a-brand-new-mac-for-development/)
+* Security - [macOS Security & Privacy Guide](https://github.com/drduh/macOS-Security-and-Privacy-Guide)
