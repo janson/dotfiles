@@ -10,8 +10,8 @@ font-feature = -dlig
 
 # --- Colors ---
 # Theme files live in ~/.config/ghostty/themes/
-# theme = light:solarized-light,dark:solarized-dark
-theme = solarized-dark
+theme = light:solarized-light,dark:solarized-dark
+#theme = solarized-dark
 
 # --- Cursor ---
 cursor-style = block

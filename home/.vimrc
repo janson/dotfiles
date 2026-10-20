@@ -342,12 +342,12 @@ let g:airline_section_warning = ''  " defaults are: ycm_warning_count, whitespac
 let g:airline#extensions#tagbar#enabled = 0 " Disable airline tagbar for faster opening times
 
 " Set background based on OS mode at time of launch
-" let theme = system('defaults read -g AppleInterfaceStyle')
-"if theme =~ 'Dark'
+let theme = system('defaults read -g AppleInterfaceStyle')
+if theme =~ 'Dark'
   set background=dark
-"else
-  "set background=light
-"endif
+else
+  set background=light
+endif
 
 " Colorschemes
 if !has('gui_running')
