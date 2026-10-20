@@ -24,3 +24,6 @@
 !/home/.config/ghostty/config
 !/home/.config/ghostty/themes/*
 !/home/.claude/CLAUDE.md
+!/home/.gnupg/gpg.conf
+!/home/.gnupg/gpg-agent.conf
+!/home/.ssh/config

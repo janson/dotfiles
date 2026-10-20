@@ -19,4 +19,3 @@ brew "neovim"
 
 # Casks for a better UX
 cask "ghostty"
-cask "gpg-suite"
