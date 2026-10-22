@@ -43,6 +43,12 @@ for dir in "$HOME/.gnupg" "$HOME/.ssh"; do
   if [ -d "$dir" ]; then run chmod 700 "$dir"; fi
 done
 
+# Per-machine git settings (signingkey, work email), included by ~/.gitconfig.
+if [ ! -e "$HOME/.gitconfig.local" ]; then
+  echo "create  ~/.gitconfig.local"
+  run touch "$HOME/.gitconfig.local"
+fi
+
 if [ -d "$backup" ]; then
   echo "Replaced files are in $backup"
 fi
