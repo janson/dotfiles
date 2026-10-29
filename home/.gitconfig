@@ -19,6 +19,7 @@
   t = log --tags --simplify-by-decoration --pretty=format:'%ai%C(cyan)%d %C(yellow)%h %Creset%s %C(white)%an'
   refresh = !git fetch --all && git remote prune origin && git checkout main && git pull
 	stale-branches = !git fetch -p && git branch -vv | grep \"origin/.*: gone]\" | awk \"{print \\$1}\"
+	merged-branches = "!f() { git for-each-ref --format=\"%(refname:short) %(upstream)\" refs/heads | while read -r b up; do case \"$up\" in refs/remotes/*) ;; *) continue ;; esac; [ \"$b\" = main ] && continue; ref=\"$up\"; git show-ref -q --verify \"$up\" || ref=\"refs/heads/$b\"; git merge-base --is-ancestor \"$ref\" main && echo \"$b\"; done; }; f"
 [commit]
 	gpgsign = true
 	template = ~/.gitmessage

@@ -12,12 +12,26 @@ export GPG_TTY=$(tty)
 
 # Homebrew Completions in zsh
 # cref. zsh-completions
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-  autoload -Uz compinit
-  compinit
+# $HOMEBREW_PREFIX comes from `brew shellenv` in .zprofile.
+typeset -U fpath
+if [[ -n $HOMEBREW_PREFIX ]]; then
+  FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
 fi
+
+# Rebuild the completion dump at most once a day; otherwise trust the cache.
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) || ! -e ~/.zcompdump ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+# History: large, shared across sessions, no duplicates.
+# A leading space keeps a command out of history.
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS EXTENDED_HISTORY
 
 # zsh
 eval "$(fzf --zsh)"
@@ -40,7 +54,8 @@ export SHOPIFY_CLI_NO_ANALYTICS=1
 
 # Modern Tooling
 alias vim='nvim'
-alias cat='bat'
+alias b='bat'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Quick Views (color done w/ $CLICOLOR)
 alias ll='ls -l'

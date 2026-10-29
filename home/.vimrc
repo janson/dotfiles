@@ -100,7 +100,8 @@ set incsearch           " highlight while searching with / or ?
 set ignorecase
 set smartcase           " overrides ignorecase if your pattern contains mixed case
 set hlsearch            " keep matches highlighted
-nmap <leader>q :nohlsearch<CR> " clear the highlight
+" clear the highlight
+nnoremap <leader>q :nohlsearch<CR>
 set showcmd             " display incomplete commands
 set showmatch           " show matching braces
 
@@ -129,14 +130,13 @@ set noswapfile          " nah, I don't want a swap file
 " ---------------------------------
 " Bling
 " ---------------------------------
-set timeoutlen=250      " time to wait after ESC
+set timeoutlen=300      " time to finish a mapping (jk, <leader> chords)
 set ttyfast             " faster redrawing
 set lazyredraw          " only redraw when necessary
 set cf                  " Enable error files & error jumping.
 set wildmenu            " show other options for tab completion
 set title               " sets terminal title
 set visualbell          " visual indication instead of audible
-set t_Co=256            " enable 256 colorschemes in non gui
 set cursorline          " highlights current line, visually speaking
 set list                        " show invisible chars
 set listchars=tab:▸\ ,eol:¬     " add extra bling for tabs & end of lines
@@ -168,8 +168,8 @@ vnoremap jk <Esc>
 " inoremap <esc> <nop>
 
 " up-down by row, not line
-nmap j gj
-nmap k gk
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " Command-][ to increase/decrease indentation
 vmap <D-]> >gv
@@ -214,9 +214,8 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 " -------------------------------------------------------------------
 
 " copilot.vim
-" This dynamically sets Copilot's Node command to whatever Node version is
-" currently active in your global mise environment.
-let g:copilot_node_command = trim(system('mise where node@22')) . '/bin/node'
+" Use mise's global Node, not whatever a project pins (may be too old for Copilot).
+let g:copilot_node_command = expand('~/.local/share/mise/installs/node/global/bin/node')
 
 
 " file-beagle
@@ -282,7 +281,7 @@ let g:fzf_colors =
 let g:netrw_liststyle = 1   " single list w/ detail
 
 " vim-bbye
-noremap :BD :Bdelete
+command! BD Bdelete
 
 " vim-javascript
 let javascript_enable_domhtmlcss=1
@@ -341,20 +340,10 @@ let g:airline_section_y = '' " defaults are: fileencoding, fileformat
 let g:airline_section_warning = ''  " defaults are: ycm_warning_count, whitespace
 let g:airline#extensions#tagbar#enabled = 0 " Disable airline tagbar for faster opening times
 
-" Set background based on OS mode at time of launch
-let theme = system('defaults read -g AppleInterfaceStyle')
-if theme =~ 'Dark'
-  set background=dark
-else
-  set background=light
-endif
+" background (light/dark) is detected from the terminal; Ghostty follows the OS.
 
 " Colorschemes
 if !has('gui_running')
-  " override escape chars for italics so we can get italicized text in
-  " xterm-256
-  set t_ZH=[3m
-  set t_ZR=[23m
   " - modified solarized
   let g:solarized_term_italics = 1 " set to 1 to enable italics in the terminal (default is 0)
   let g:solarized_visibility = "low" " less in-yo-face invisible chars
