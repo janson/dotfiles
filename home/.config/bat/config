@@ -1,0 +1,4 @@
+# Use the terminal's palette, so bat follows Ghostty's light/dark switch.
+# Auto-detection can't query the terminal when piped (e.g. fzf previews)
+# and falls back to a dark theme with white text.
+--theme=ansi

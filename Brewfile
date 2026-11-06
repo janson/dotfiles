@@ -16,6 +16,7 @@ brew "pinentry-mac"
 
 # Editor
 brew "neovim"
+brew "tree-sitter-cli" # nvim-treesitter compiles parsers with it
 
 # Casks for a better UX
 cask "ghostty"

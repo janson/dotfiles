@@ -17,40 +17,54 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat' " allows vim-surround to be repeated with the . command
 Plug 'moll/vim-bbye' " :Bdelete command that behaves like a well designed citizen
 Plug 'janson/bufonly.vim' 
-Plug 'numToStr/Comment.nvim' " ⚡ Smart and Powerful commenting plugin for neovim ⚡
+if has('nvim')
+  Plug 'numToStr/Comment.nvim' " ⚡ Smart and Powerful commenting plugin for neovim ⚡
+endif
 
 " UI Additions
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Language Additions
-"   Language pack
-" Plug 'sheerun/vim-polyglot' " un-maintained as of 2017
-"   Backend
-Plug 'elixir-editors/vim-elixir'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'smerrill/vcl-vim-plugin'
-"   Middle
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'alampros/vim-styled-jsx' " 4 years old, but I haven't found anything to replace it — this repository has been archived by the owner. It is now read-only.
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'jparise/vim-graphql'
-"   Front
-Plug 'othree/html5.vim'
-"   Other
-Plug 'elzr/vim-json'
-Plug 'plasticboy/vim-markdown'
+"   Neovim highlights with tree-sitter (incl. styled-jsx, styled-components
+"   and html/css/graphql template literals); native Vim keeps the regex
+"   syntax plugins.
+Plug 'tpope/vim-rails' " commands & navigation, not syntax
+Plug 'smerrill/vcl-vim-plugin' " no tree-sitter parser for VCL
+if has('nvim')
+  " Config under Plugin Settings. Needs `tree-sitter` CLI.
+  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'main', 'do': ':TSUpdate' }
+else
+  "   Backend
+  Plug 'elixir-editors/vim-elixir'
+  Plug 'vim-ruby/vim-ruby'
+  "   Middle
+  Plug 'pangloss/vim-javascript'
+  Plug 'MaxMEllon/vim-jsx-pretty'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'Quramy/vim-js-pretty-template'
+  Plug 'alampros/vim-styled-jsx' " archived, but nothing replaces it outside tree-sitter
+  Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+  Plug 'jparise/vim-graphql'
+  "   Front
+  Plug 'othree/html5.vim'
+  "   Other
+  Plug 'elzr/vim-json'
+  Plug 'plasticboy/vim-markdown'
+endif
 Plug 'github/copilot.vim'
 "   Lint
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 
 " Color
-Plug 'lifepillar/vim-solarized8', { 'branch': 'neovim' } " instead of 'official' @altercation
+" instead of 'official' @altercation. The neovim branch defines @treesitter
+" groups, which Vim rejects (W18), so Vim gets master in its own directory.
+if has('nvim')
+  Plug 'lifepillar/vim-solarized8', { 'branch': 'neovim' }
+else
+  Plug 'lifepillar/vim-solarized8', { 'as': 'vim-solarized8-vim' }
+endif
 Plug 'gruvbox-community/gruvbox'
 Plug 'nordtheme/vim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
@@ -65,7 +79,12 @@ Plug 'junegunn/goyo.vim'
 call plug#end()
 
 " Initialize Comment.nvim (Somewhere after plug#end())
-lua require('Comment').setup()
+" Native Vim (no Lua) uses its bundled comment plugin for the same gc/gcc maps.
+if has('nvim')
+  lua require('Comment').setup()
+else
+  silent! packadd! comment
+endif
 
 " -------------------------------------------------------------------
 " Global VIM Settings (No Plugins Needed)
@@ -196,8 +215,11 @@ autocmd FileType gitcommit set colorcolumn+=51 " In git commit messages, also co
 
 " sytax highlighting can get out of sync in large JSX & TSX files
 " cref. https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+" Neovim uses tree-sitter for these instead.
+if !has('nvim')
+  autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+  autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+endif
 
 " ---------------------------------
 " Writing
@@ -216,7 +238,35 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 " copilot.vim
 " Use mise's global Node, not whatever a project pins (may be too old for Copilot).
 let g:copilot_node_command = expand('~/.local/share/mise/installs/node/global/bin/node')
+" Disable copilot for now, since it's forbidden in the non-AI-assisted coding
+" exercises
+let g:copilot_enabled = 0
 
+" nvim-treesitter
+" Tree-sitter highlighting for any filetype with an installed parser; the
+" rest fall back to regex syntax. Neovim bundles c, lua, vim, vimdoc, query,
+" markdown and markdown_inline.
+if has('nvim')
+lua << EOF
+local ok, ts = pcall(require, 'nvim-treesitter')
+if ok then
+  -- no-op when already installed
+  ts.install({
+    -- Front
+    'html', 'css', 'scss', 'javascript', 'typescript', 'tsx', 'jsdoc',
+    'svelte', 'liquid', 'graphql', 'json', 'styled',
+    -- Back
+    'ruby', 'embedded_template', 'elixir', 'heex', 'eex', 'python', 'sql',
+    -- Other
+    'bash', 'yaml', 'toml', 'dockerfile', 'regex',
+    'gitcommit', 'git_rebase', 'gitignore', 'diff',
+  })
+end
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
+EOF
+endif
 
 " file-beagle
 let g:filebeagle_suppress_keymaps = 1
@@ -292,6 +342,13 @@ let g:vim_json_syntax_conceal = 0
 " vim-markdown
 let g:vim_markdown_initial_foldlevel=2
 
+" Neovim: fold markdown on headings with tree-sitter, like vim-markdown.
+" (g:markdown_folding misreads `#` in code blocks once regex syntax is off.)
+if has('nvim')
+  autocmd FileType markdown setlocal foldmethod=expr
+        \ foldexpr=v:lua.vim.treesitter.foldexpr() foldlevel=2
+endif
+
 " w0rp/ale
 " The :ALEFixSuggest command will suggest some supported tools for fixing code.
 let g:ale_fixers = {
@@ -307,7 +364,7 @@ let g:ale_linters = {
 \ 'ruby': ['rubocop'],
 \ 'scss': ['stylelint'],
 \}
-" Previously, from wf
+" Previously, from wayfair
 " let g:ale_fixers = {
 "   \    'javascript': ['eslint'],
 "   \    'typescript': ['prettier', 'tslint'],
