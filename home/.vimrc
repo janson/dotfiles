@@ -216,7 +216,9 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 " copilot.vim
 " Use mise's global Node, not whatever a project pins (may be too old for Copilot).
 let g:copilot_node_command = expand('~/.local/share/mise/installs/node/global/bin/node')
-
+" Disable copilot for now, since it's forbidden in the non-AI-assisted coding
+" exercises
+let g:copilot_enabled = 0
 
 " file-beagle
 let g:filebeagle_suppress_keymaps = 1
