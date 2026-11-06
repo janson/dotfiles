@@ -19,6 +19,7 @@
 !/home/.gitignore
 !/home/.gitmessage
 !/home/.vimrc
+!/home/.config/bat/config
 !/home/.config/nvim/init.vim
 !/home/.config/mise/config.toml
 !/home/.config/ghostty/config
