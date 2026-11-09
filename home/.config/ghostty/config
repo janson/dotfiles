@@ -2,7 +2,7 @@
 
 # --- Typography ---
 font-family = MonoLisa
-font-size = 16
+font-size = 14
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
@@ -10,8 +10,8 @@ font-feature = -dlig
 
 # --- Colors ---
 # Theme files live in ~/.config/ghostty/themes/
-theme = light:solarized-light,dark:solarized-dark
-#theme = Selenized Light
+# theme = light:solarized-light,dark:solarized-dark
+theme = light:Selenized Light,dark:Selenized Dark
 
 # --- Cursor ---
 cursor-style = block
