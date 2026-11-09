@@ -58,17 +58,15 @@ Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 
 " Color
-" instead of 'official' @altercation. The neovim branch defines @treesitter
-" groups, which Vim rejects (W18), so Vim gets master in its own directory.
+Plug 'gruvbox-community/gruvbox'
+Plug 'nordtheme/vim'
+Plug 'sainnhe/everforest'
+" Solarized8 doesn't support tree-sitter groups
 if has('nvim')
-  Plug 'lifepillar/vim-solarized8', { 'branch': 'neovim' }
+  Plug 'shaunsingh/solarized.nvim'
 else
   Plug 'lifepillar/vim-solarized8', { 'as': 'vim-solarized8-vim' }
 endif
-Plug 'gruvbox-community/gruvbox'
-Plug 'nordtheme/vim'
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'sainnhe/everforest'
 
 " Writing
 Plug 'preservim/vim-pencil' " og was reedes/vim-pencil
@@ -238,9 +236,8 @@ endif
 " copilot.vim
 " Use mise's global Node, not whatever a project pins (may be too old for Copilot).
 let g:copilot_node_command = expand('~/.local/share/mise/installs/node/global/bin/node')
-" Disable copilot for now, since it's forbidden in the non-AI-assisted coding
-" exercises
-let g:copilot_enabled = 0
+" Disable copilot it's disallowed in non-AI-assisted coding exercises
+" let g:copilot_enabled = 0
 
 " nvim-treesitter
 " Tree-sitter highlighting for any filetype with an installed parser; the
@@ -401,9 +398,18 @@ let g:airline#extensions#tagbar#enabled = 0 " Disable airline tagbar for faster 
 
 " Colorschemes
 if !has('gui_running')
-  " - modified solarized
+  " - modified solarized8
   let g:solarized_term_italics = 1 " set to 1 to enable italics in the terminal (default is 0)
   let g:solarized_visibility = "low" " less in-yo-face invisible chars
+  " - modified solarized.nvim
+  let g:solarized_italic_comments = v:true
+  " Its NonText is base02 on both backgrounds, near-black on light. Use its
+  " bg_alt instead: base2 on light, base02 on dark.
+  augroup solarized_nvim_overrides
+    autocmd!
+    autocmd ColorScheme solarized
+          \ execute 'hi NonText guifg=' . luaeval("require('solarized.colors').bg_alt")
+  augroup END
   " - nord (dark)
   let g:nord_italic = 1
   let g:nord_italic_comments = 1
@@ -419,8 +425,11 @@ if !has('gui_running')
 
   " all settings need to be set prior to scheme activation
   "colorscheme everforest
-  "colorscheme solarized8_flat
-  colorscheme solarized8_high
+  if has('nvim')
+    colorscheme solarized
+  else
+    colorscheme solarized8_high
+  endif
   "colorscheme nord 
   "colorscheme gruvbox 
 endif
