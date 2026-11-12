@@ -61,12 +61,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'nordtheme/vim'
 Plug 'sainnhe/everforest'
-" Solarized8 doesn't support tree-sitter groups
-if has('nvim')
-  Plug 'shaunsingh/solarized.nvim'
-else
-  Plug 'lifepillar/vim-solarized8', { 'as': 'vim-solarized8-vim' }
-endif
+Plug 'overcache/NeoSolarized'
 
 " Writing
 Plug 'preservim/vim-pencil' " og was reedes/vim-pencil
@@ -410,6 +405,10 @@ if !has('gui_running')
     autocmd ColorScheme solarized
           \ execute 'hi NonText guifg=' . luaeval("require('solarized.colors').bg_alt")
   augroup END
+  " - neo solarized
+  let g:neosolarized_visibility = "low"
+  let g:neosolarized_italic = 1
+
   " - nord (dark)
   let g:nord_italic = 1
   let g:nord_italic_comments = 1
@@ -425,11 +424,7 @@ if !has('gui_running')
 
   " all settings need to be set prior to scheme activation
   "colorscheme everforest
-  if has('nvim')
-    colorscheme solarized
-  else
-    colorscheme solarized8_high
-  endif
   "colorscheme nord 
   "colorscheme gruvbox 
+  colorscheme NeoSolarized
 endif

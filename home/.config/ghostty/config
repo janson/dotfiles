@@ -2,7 +2,7 @@
 
 # --- Typography ---
 font-family = MonoLisa
-font-size = 16
+font-size = 14
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
